@@ -2,9 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+## Despesas
 fileExpense = "despesas/despesas.csv"
-fileBudget = "receitas/receitas.csv"
-
 dataExpense = pd.read_csv(
     fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
@@ -32,11 +31,21 @@ for uf in uniqueEstados:
     states.append(uf)
     sumList.append(soma)
 
-# plt.bar(states, sumList)
-# plt.show()
+# Personalizando o gráfico
+fig, ax = plt.subplots(figsize=(12, 6))
+
+bars = ax.bar(states, sumList, color='skyblue', edgecolor='black')
+
+# Adicionando título e rótulos
+ax.set_title('Despesas Pagas por Estado', fontsize=16)
+ax.set_xlabel('Estados', fontsize=14)
+ax.set_ylabel('Total de Despesas Pagas', fontsize=14)
+
+plt.bar(states, sumList)
+plt.show()
 
 ## Budget
-
+fileBudget = "receitas/receitas.csv"
 dataBudget = pd.read_csv(
     fileBudget, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
@@ -49,6 +58,7 @@ onlyPaidBudgetAndTotal = onlyPaidBudget[
     onlyPaidBudget["Conta"].str.contains(pat="TOTAL DAS RECEITAS")
 ]
 
+uniqueEstados = pd.unique(dataBudget["UF"])
 
 sumList = []
 states = []
@@ -56,32 +66,22 @@ for uf in uniqueEstados:
     cidades = onlyPaidBudgetAndTotal[onlyPaidBudgetAndTotal["UF"] == uf]
     soma = 0
     for receita in cidades["Valor"]:
-        if saldo == "Instituição":
+        if receita == "Instituição":
             continue
-        fSoma = float(saldo.replace(",", "."))
+        fSoma = float(receita.replace(",", "."))
         soma += fSoma
     states.append(uf)
     sumList.append(soma)
 
-# sumStates = np.array(sumStates)
-
-# print(sumStates[0])
-
-# plt.bar(["a", "b", "c", "d"], [10, 3, 7, 15])
-# plt.show()
-
 plt.bar(states, sumList)
 plt.show()
 
-# print(data.loc[onlyPaid[True]])
 
 """
 for index in range(0, len(onlyPaid)):
     if onlyPaid[index] == True:
         print(data.loc[index])
 """
-
-# print(onlyPaid.loc[True])
 
 """
 onlyPaid = data["Coluna"].str.contains(pat="Despesas Pagas")
