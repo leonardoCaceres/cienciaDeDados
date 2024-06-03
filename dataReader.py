@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-## Despesas
+### Despesas ###
 fileExpense = "despesas/despesas.csv"
 dataExpense = pd.read_csv(
     fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
@@ -44,7 +44,7 @@ ax.set_ylabel('Total de Despesas Pagas', fontsize=14)
 plt.bar(states, sumList)
 plt.show()
 
-## Budget
+### Budget ###
 fileBudget = "receitas/receitas.csv"
 dataBudget = pd.read_csv(
     fileBudget, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
