@@ -2,11 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-### Despesas ###
+######## Despesas ########
 fileExpense = "despesas/despesas.csv"
 dataExpense = pd.read_csv(
     fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
+
+dataExpense.drop(columns=['Identificador da Conta'], inplace=True)
 
 uniqueNamesExpense = pd.unique(dataExpense["Instituição"])
 
@@ -44,11 +46,14 @@ ax.set_ylabel('Total de Despesas Pagas', fontsize=14)
 plt.bar(states, sumList)
 plt.show()
 
-### Budget ###
+######## Budget ########
+
 fileBudget = "receitas/receitas.csv"
 dataBudget = pd.read_csv(
     fileBudget, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
+
+dataBudget.drop(columns=['Identificador da Conta'], inplace=True)
 
 uniqueNamesBudget = pd.unique(dataBudget["Instituição"])
 
@@ -72,6 +77,16 @@ for uf in uniqueEstados:
         soma += fSoma
     states.append(uf)
     sumList.append(soma)
+
+# Personalizando o gráfico
+fig, ax = plt.subplots(figsize=(12, 6))
+
+bars = ax.bar(states, sumList, color='skyblue', edgecolor='black')
+
+# Adicionando título e rótulos
+ax.set_title('Arrecadação por Estado', fontsize=16)
+ax.set_xlabel('Estados', fontsize=14)
+ax.set_ylabel('Total de Arrecadações', fontsize=14)
 
 plt.bar(states, sumList)
 plt.show()
