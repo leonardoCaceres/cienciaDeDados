@@ -20,8 +20,8 @@ onlyPaidExpenseAndTotal = onlyPaidExpense[
 
 uniqueEstados = pd.unique(dataExpense["UF"])
 
-sumList = []
-states = []
+sumListExpense = []
+statesExpense = []
 for uf in uniqueEstados:
     cidades = onlyPaidExpenseAndTotal[onlyPaidExpenseAndTotal["UF"] == uf]
     soma = 0
@@ -30,20 +30,20 @@ for uf in uniqueEstados:
             continue
         fSoma = float(saldo.replace(",", "."))
         soma += fSoma
-    states.append(uf)
-    sumList.append(soma)
+    statesExpense.append(uf)
+    sumListExpense.append(soma)
 
 # Personalizando o gráfico
 fig, ax = plt.subplots(figsize=(12, 6))
 
-bars = ax.bar(states, sumList, color='skyblue', edgecolor='black')
+bars = ax.bar(statesExpense, sumListExpense, color='skyblue', edgecolor='black')
 
 # Adicionando título e rótulos
 ax.set_title('Despesas Pagas por Estado', fontsize=16)
 ax.set_xlabel('Estados', fontsize=14)
 ax.set_ylabel('Total de Despesas Pagas', fontsize=14)
 
-plt.bar(states, sumList)
+plt.bar(statesExpense, sumListExpense)
 plt.show()
 
 ######## Budget ########
@@ -65,8 +65,8 @@ onlyPaidBudgetAndTotal = onlyPaidBudget[
 
 uniqueEstados = pd.unique(dataBudget["UF"])
 
-sumList = []
-states = []
+sumListBudget = []
+statesBudget = []
 for uf in uniqueEstados:
     cidades = onlyPaidBudgetAndTotal[onlyPaidBudgetAndTotal["UF"] == uf]
     soma = 0
@@ -75,39 +75,39 @@ for uf in uniqueEstados:
             continue
         fSoma = float(receita.replace(",", "."))
         soma += fSoma
-    states.append(uf)
-    sumList.append(soma)
+    statesBudget.append(uf)
+    sumListBudget.append(soma)
 
 # Personalizando o gráfico
+
+situacaoEstados = []
+cont = 0
+
+while (len(sumListBudget) > cont):
+    situacaoEstados.append(sumListBudget[cont] - sumListExpense[cont])
+    cont += 1
+
 fig, ax = plt.subplots(figsize=(12, 6))
 
-bars = ax.bar(states, sumList, color='skyblue', edgecolor='black')
+bars = ax.bar(statesBudget, situacaoEstados, color='skyblue', edgecolor='black')
 
 # Adicionando título e rótulos
 ax.set_title('Arrecadação por Estado', fontsize=16)
 ax.set_xlabel('Estados', fontsize=14)
 ax.set_ylabel('Total de Arrecadações', fontsize=14)
 
-plt.bar(states, sumList)
+plt.bar(statesBudget, sumListBudget)
 plt.show()
 
+######## Estado das contas do estado ########
+fig, ax = plt.subplots(figsize=(12, 6))
 
-"""
-for index in range(0, len(onlyPaid)):
-    if onlyPaid[index] == True:
-        print(data.loc[index])
-"""
+bars = ax.bar(statesBudget, situacaoEstados, color='skyblue', edgecolor='black')
 
-"""
-onlyPaid = data["Coluna"].str.contains(pat="Despesas Pagas")
-uniqueNames = pd.unique(onlyPaid["Instituição"])
-print(uniqueNames.shape)
+# Adicionando título e rótulos
+ax.set_title('Arrecadação - Despesas', fontsize=16)
+ax.set_xlabel('Estados', fontsize=14)
+ax.set_ylabel('Total da subtração', fontsize=14)
 
-onlyPaidAndTotal = onlyPaid[onlyPaid["Conta"] == "Total Geral da Despesa"]
-
-uniqueNames = pd.unique(onlyPaidAndTotal["Instituição"])
-print(uniqueNames.shape)
-# print(onlyPaidAndTotal)
-
-# faltando = data[data]
-"""
+plt.bar(statesBudget, situacaoEstados)
+plt.show()
