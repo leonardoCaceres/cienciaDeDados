@@ -1,8 +1,10 @@
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-######## Despesas ########
+from statesReport import *
+
+######## Exoense ########
 fileExpense = "despesas/despesas.csv"
 dataExpense = pd.read_csv(
     fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
@@ -80,16 +82,16 @@ for uf in uniqueEstados:
 
 # Personalizando o gráfico
 
-situacaoEstados = []
+resultStates = []
 cont = 0
 
 while (len(sumListBudget) > cont):
-    situacaoEstados.append(sumListBudget[cont] - sumListExpense[cont])
+    resultStates.append(sumListBudget[cont] - sumListExpense[cont])
     cont += 1
 
 fig, ax = plt.subplots(figsize=(12, 6))
 
-bars = ax.bar(statesBudget, situacaoEstados, color='skyblue', edgecolor='black')
+bars = ax.bar(statesBudget, resultStates, color='skyblue', edgecolor='black')
 
 # Adicionando título e rótulos
 ax.set_title('Arrecadação por Estado', fontsize=16)
@@ -102,12 +104,15 @@ plt.show()
 ######## Estado das contas do estado ########
 fig, ax = plt.subplots(figsize=(12, 6))
 
-bars = ax.bar(statesBudget, situacaoEstados, color='skyblue', edgecolor='black')
+bars = ax.bar(statesBudget, resultStates, color='skyblue', edgecolor='black')
 
 # Adicionando título e rótulos
 ax.set_title('Arrecadação - Despesas', fontsize=16)
 ax.set_xlabel('Estados', fontsize=14)
 ax.set_ylabel('Total da subtração', fontsize=14)
 
-plt.bar(statesBudget, situacaoEstados)
+plt.bar(statesBudget, resultStates)
 plt.show()
+
+report = StatesReport(statesBudget, sumListBudget, sumListExpense, resultStates)
+report.createReport()

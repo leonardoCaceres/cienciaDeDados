@@ -26,6 +26,7 @@ Projeto feito em python 3 que visa fazer levantamento de todas as despesas e rec
 
 3. Crie pastas com o nome ```despesas``` e ```receitas``` e baixe os arquivos referente ao ano que você deseja no site <a href="https://siconfi.tesouro.gov.br/siconfi/index.jsf">sconfi</a>.
 
+4. Tenha certesa de criar o arquivo ```report.txt``` na raiz para que o relatorio seja gerado.
 
 <h3>Autores</h3>
 <a href="https://github.com/JoabUrbano">Joab Urbano</a><br>
