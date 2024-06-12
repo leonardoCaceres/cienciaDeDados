@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from statesReport import *
+from report import *
 
 ######## Exoense ########
 fileExpense = "despesas/despesas.csv"
@@ -116,7 +116,7 @@ plt.show()
 
 
 ######## Gerando relatorios nos txt ########
-report = StatesReport()
+report = Report()
 report.createReportStates(statesBudget, sumListBudget, sumListExpense, resultStates)
 
 ### Filtrando prefeituras que não estão presentes em ambos os relatorios
@@ -129,5 +129,6 @@ onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[~onlyPaidBudgetAndTotal[
 counties = onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy()
 countiesExpense = onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy()
 countiesBudget = onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy()
+countiesPopulation = onlyPaidBudgetAndTotalFiltered["População"].to_numpy()
 
-report.createReportCounties(counties, countiesBudget, countiesExpense)
+report.createReportCounties(counties, countiesBudget, countiesExpense, countiesPopulation)

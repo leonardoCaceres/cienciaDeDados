@@ -1,4 +1,4 @@
-class StatesReport:
+class Report:
     def createReportStates(self, states, budget, expense, result):
         report = 'reportStates.txt'
         try:
@@ -29,7 +29,7 @@ class StatesReport:
         finally:
             file.close()
     
-    def createReportCounties(self, counties, countiesBudget, countiesExpense):
+    def createReportCounties(self, counties, countiesBudget, countiesExpense, population):
         report = 'reportCounties.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
@@ -41,6 +41,7 @@ class StatesReport:
 
             while len(counties) > cont:
                 result = float(countiesBudget[cont].replace(",", ".")) - float(countiesExpense[cont].replace(",", "."))
+                PIB = float(countiesBudget[cont].replace(",", "."))/float(population[cont])
                 if (result > 0):
                     lucro += 1
                 elif (result < 0):
@@ -50,6 +51,7 @@ class StatesReport:
                     + f"Arrecadação: {countiesBudget[cont]} \n"
                     + f"Gastos: {countiesExpense[cont]} \n"
                     + f"Lucro: {result:.2f} \n"
+                    + f"Arecadação per capta do municipio: {PIB:.2f} \n"
                     + '---------------------------------- \n')
                 cont += 1
             file.writelines(line)
