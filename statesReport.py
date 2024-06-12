@@ -1,27 +1,20 @@
 class StatesReport:
-    def __init__(self, states, budget, expense, result):
-        self.state = states
-        self.budget = budget
-        self.expense = expense
-        self.result = result
-    
-    def createReport(self):
-        report = 'report.txt'
+    def createReportStates(self, states, budget, expense, result):
+        report = 'reportStates.txt'
         try:
-            file = open(report, 'r', encoding='utf-8')
+            file = open(report, 'w+', encoding='utf-8')
             line = file.readlines()
             cont = 0
-            while len(self.state) > cont:
-                percentage = (100*self.result[cont])/self.budget[cont]
+            while len(states) > cont:
+                percentage = (100*result[cont])/budget[cont]
                 line.append(
-                    f"{self.state[cont]} \n"
-                    + f"Arrecadação: {self.budget[cont]:.2f} \n"
-                    + f"Gastos: {self.expense[cont]:.2f} \n"
-                    + f"Lucro: {self.result[cont]:.2f} "
+                    f"{states[cont]} \n"
+                    + f"Arrecadação: {budget[cont]:.2f} \n"
+                    + f"Gastos: {expense[cont]:.2f} \n"
+                    + f"Lucro: {result[cont]:.2f} "
                     + f"({percentage:.2f}%)\n"
                     + '---------------------------------- \n')
                 cont += 1
-            file = open(report, 'w', encoding='utf-8')
             file.writelines(line)
         
         except IOError:
@@ -31,7 +24,46 @@ class StatesReport:
             print('Erro: ', erro)
         
         else:
-            print('Relatorio gerado com sucesso!')
+            print('Relatorio dos estados gerado com sucesso!')
+        
+        finally:
+            file.close()
+    
+    def createReportCounties(self, counties, countiesBudget, countiesExpense):
+        report = 'reportCounties.txt'
+        try:
+            file = open(report, 'w+', encoding='utf-8')
+            line = file.readlines()
+            cont = 0
+            
+            prejuizo = 0
+            lucro = 0
+
+            while len(counties) > cont:
+                result = float(countiesBudget[cont].replace(",", ".")) - float(countiesExpense[cont].replace(",", "."))
+                if (result > 0):
+                    lucro += 1
+                elif (result < 0):
+                    prejuizo += 1
+                line.append(
+                    f"{counties[cont]} \n"
+                    + f"Arrecadação: {countiesBudget[cont]} \n"
+                    + f"Gastos: {countiesExpense[cont]} \n"
+                    + f"Lucro: {result:.2f} \n"
+                    + '---------------------------------- \n')
+                cont += 1
+            file.writelines(line)
+            print(f"Número de municipios que dão prejuizo: {prejuizo}")
+            print(f"Número de municipios que tem lucro: {lucro}")
+        
+        except IOError:
+            print('Arquivo inexistente!')
+        
+        except Exception as erro:
+            print('Erro: ', erro)
+        
+        else:
+            print('Relatorio dos municipios gerado com sucesso!')
         
         finally:
             file.close()

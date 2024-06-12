@@ -114,5 +114,20 @@ ax.set_ylabel('Total da subtração', fontsize=14)
 plt.bar(statesBudget, resultStates)
 plt.show()
 
-report = StatesReport(statesBudget, sumListBudget, sumListExpense, resultStates)
-report.createReport()
+
+######## Gerando relatorios nos txt ########
+report = StatesReport()
+report.createReportStates(statesBudget, sumListBudget, sumListExpense, resultStates)
+
+### Filtrando prefeituras que não estão presentes em ambos os relatorios
+filterExpense = ['Prefeitura Municipal de Bujari - AC', 'Prefeitura Municipal de Uirapuru - GO']
+onlyPaidExpenseAndTotalFiltered = onlyPaidExpenseAndTotal[~onlyPaidExpenseAndTotal["Instituição"].isin(filterExpense)]
+
+filterBudget = ['Prefeitura Municipal de Nova Lima - MG', 'Prefeitura Municipal de Oliveira - MG', 'Prefeitura Municipal de Piraí do Norte - BA', 'Prefeitura Municipal de Pedro Alexandre - BA']
+onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[~onlyPaidBudgetAndTotal["Instituição"].isin(filterBudget)]
+
+counties = onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy()
+countiesExpense = onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy()
+countiesBudget = onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy()
+
+report.createReportCounties(counties, countiesBudget, countiesExpense)
