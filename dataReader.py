@@ -126,9 +126,43 @@ onlyPaidExpenseAndTotalFiltered = onlyPaidExpenseAndTotal[~onlyPaidExpenseAndTot
 filterBudget = ['Prefeitura Municipal de Nova Lima - MG', 'Prefeitura Municipal de Oliveira - MG', 'Prefeitura Municipal de Piraí do Norte - BA', 'Prefeitura Municipal de Pedro Alexandre - BA']
 onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[~onlyPaidBudgetAndTotal["Instituição"].isin(filterBudget)]
 
-counties = onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy()
-countiesExpense = onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy()
-countiesBudget = onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy()
-countiesPopulation = onlyPaidBudgetAndTotalFiltered["População"].to_numpy()
+profit = report.calculateCountiesProfit(
+    onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(), 
+    onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy()
+)
 
-report.createReportCounties(counties, countiesBudget, countiesExpense, countiesPopulation)
+### Criado novo dataframe com as informações que queremos utilizar
+dataCounties = {
+    'Municipios': onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy(),
+    'Gastos': onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy(),
+    'Arrecadacao': onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(),
+    'Populacao': onlyPaidBudgetAndTotalFiltered["População"].to_numpy(),
+    'Lucro' : profit
+}
+
+dfCounties = pd.DataFrame(dataCounties)
+dfCounties = dfCounties.sort_values(by='Lucro', ascending=False)
+
+# Calculando os quartis
+q1 = dfCounties['Lucro'].quantile(0.25)
+q2 = dfCounties['Lucro'].quantile(0.50)
+q3 = dfCounties['Lucro'].quantile(0.75)
+
+# Adicionando a coluna de quartil com o valor do quartil correspondente
+dfCounties['Quartil'] = dfCounties['Lucro'].apply(lambda x: report.determinar_quartil(x, q1, q2, q3))
+
+counties = dfCounties["Municipios"].to_numpy()
+countiesExpense = dfCounties["Gastos"].to_numpy()
+countiesBudget = dfCounties["Arrecadacao"].to_numpy()
+countiesPopulation = dfCounties["Populacao"].to_numpy()
+countiesQuartis = dfCounties['Quartil'].to_numpy()
+countiesProfit = report.calculateCountiesProfit(countiesBudget, countiesExpense)
+
+report.createReportCounties(
+    counties,
+    countiesBudget,
+    countiesExpense,
+    countiesPopulation,
+    countiesProfit,
+    countiesQuartis
+)

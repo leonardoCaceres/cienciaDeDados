@@ -29,7 +29,16 @@ class Report:
         finally:
             file.close()
     
-    def createReportCounties(self, counties, countiesBudget, countiesExpense, population):
+    def createReportCounties(
+            self,
+            counties,
+            countiesBudget,
+            countiesExpense,
+            population,
+            countiesProfit,
+            countiesQuartis
+        ):
+
         report = 'reportCounties.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
@@ -40,23 +49,23 @@ class Report:
             lucro = 0
 
             while len(counties) > cont:
-                result = float(countiesBudget[cont].replace(",", ".")) - float(countiesExpense[cont].replace(",", "."))
                 PIB = float(countiesBudget[cont].replace(",", "."))/float(population[cont])
-                if (result > 0):
+                if (countiesProfit[cont] > 0):
                     lucro += 1
-                elif (result < 0):
+                elif (countiesProfit[cont] < 0):
                     prejuizo += 1
                 line.append(
                     f"{counties[cont]} \n"
                     + f"Arrecadação: {countiesBudget[cont]} \n"
                     + f"Gastos: {countiesExpense[cont]} \n"
-                    + f"Lucro: {result:.2f} \n"
+                    + f"Lucro: {countiesProfit[cont]:.2f} \n"
                     + f"Arecadação per capta do municipio: {PIB:.2f} \n"
+                    + f"Posição do municipio: {countiesQuartis[cont]} \n"
                     + '---------------------------------- \n')
                 cont += 1
+            line.append(f"Total de municipios que dão lucro: {lucro} \n")
+            line.append(f"Total de municipios que dão prejuizo: {prejuizo} \n")
             file.writelines(line)
-            print(f"Número de municipios que dão prejuizo: {prejuizo}")
-            print(f"Número de municipios que tem lucro: {lucro}")
         
         except IOError:
             print('Arquivo inexistente!')
@@ -69,4 +78,24 @@ class Report:
         
         finally:
             file.close()
+    
+    def calculateCountiesProfit(self, countiesBudget, countiesExpense):
+        cont = 0
+        result = []
+        
+        while len(countiesBudget) > cont:
+            result.append(float(countiesBudget[cont].replace(",", ".")) - float(countiesExpense[cont].replace(",", ".")))
+            cont += 1
+        
+        return result
+    
+    def determinar_quartil(self, valor, q1, q2, q3):
+        if valor <= q1:
+            return 'Entre os 25% piores'
+        elif valor <= q2:
+            return 'Entre os 25 e os 50%'
+        elif valor <= q3:
+            return 'Entre os 50 e os 75%'
+        else:
+            return 'Entre os 25% melhores'
         
