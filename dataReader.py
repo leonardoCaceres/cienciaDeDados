@@ -4,13 +4,15 @@ import matplotlib.pyplot as plt
 
 from report import *
 
-######## Exoense ########
+######## Expense ########
 fileExpense = "despesas/despesas.csv"
 dataExpense = pd.read_csv(
     fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
 
+# Removendo informações desnecessarias
 dataExpense.drop(columns=['Identificador da Conta'], inplace=True)
+dataExpense.drop(columns=['População'], inplace=True)
 
 uniqueNamesExpense = pd.unique(dataExpense["Instituição"])
 
@@ -55,6 +57,7 @@ dataBudget = pd.read_csv(
     fileBudget, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
 )
 
+# Removendo informações desnecessarias
 dataBudget.drop(columns=['Identificador da Conta'], inplace=True)
 
 uniqueNamesBudget = pd.unique(dataBudget["Instituição"])
@@ -81,7 +84,6 @@ for uf in uniqueEstados:
     sumListBudget.append(soma)
 
 # Personalizando o gráfico
-
 resultStates = []
 cont = 0
 
@@ -107,7 +109,7 @@ fig, ax = plt.subplots(figsize=(12, 6))
 bars = ax.bar(statesBudget, resultStates, color='skyblue', edgecolor='black')
 
 # Adicionando título e rótulos
-ax.set_title('Arrecadação - Despesas', fontsize=16)
+ax.set_title('Saldo orçamentario', fontsize=16)
 ax.set_xlabel('Estados', fontsize=14)
 ax.set_ylabel('Total da subtração', fontsize=14)
 

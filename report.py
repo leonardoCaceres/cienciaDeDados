@@ -11,8 +11,8 @@ class Report:
                     f"{states[cont]} \n"
                     + f"Arrecadação: {budget[cont]:.2f} \n"
                     + f"Gastos: {expense[cont]:.2f} \n"
-                    + f"Lucro: {result[cont]:.2f} "
-                    + f"({percentage:.2f}%)\n"
+                    + f"Saldo orçamentario: {result[cont]:.2f} "
+                    + f"({percentage:.2f}%) da arrecadação\n"
                     + '---------------------------------- \n')
                 cont += 1
             file.writelines(line)
@@ -58,13 +58,13 @@ class Report:
                     f"{counties[cont]} \n"
                     + f"Arrecadação: {countiesBudget[cont]} \n"
                     + f"Gastos: {countiesExpense[cont]} \n"
-                    + f"Lucro: {countiesProfit[cont]:.2f} \n"
+                    + f"Saldo orçamentario: {countiesProfit[cont]:.2f} \n"
                     + f"Arecadação per capta do municipio: {PIB:.2f} \n"
                     + f"Posição do municipio: {countiesQuartis[cont]} \n"
                     + '---------------------------------- \n')
                 cont += 1
-            line.append(f"Total de municipios que dão lucro: {lucro} \n")
-            line.append(f"Total de municipios que dão prejuizo: {prejuizo} \n")
+            line.append(f"Total de municipios com superávit Orçamentário: {lucro} \n")
+            line.append(f"Total de municipios com déficit Orçamentário: {prejuizo} \n")
             file.writelines(line)
         
         except IOError:
