@@ -4,14 +4,17 @@ import pandas as pd
 from report import *
 from graphics import *
 
-######## Expense ########
-fileExpense = "despesas/despesas.csv"
-dataExpense = pd.read_csv(
-    fileExpense, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
-)
+def openfile(path):
+    data = pd.read_csv(
+    path, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
+    )
+    return data
 
+######## Expense ########
+dataExpense = openfile("despesas/despesas.csv")
 # Removendo informações desnecessarias
 dataExpense.drop(columns=['Identificador da Conta'], inplace=True)
+dataExpense.drop(columns=['Cod.IBGE'], inplace=True)
 dataExpense.drop(columns=['População'], inplace=True)
 
 uniqueNamesExpense = pd.unique(dataExpense["Instituição"])
@@ -56,14 +59,11 @@ graphics.createGraphics(
 )
 
 ######## Budget ########
-
-fileBudget = "receitas/receitas.csv"
-dataBudget = pd.read_csv(
-    fileBudget, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
-)
+dataBudget = openfile("receitas/receitas.csv")
 
 # Removendo informações desnecessarias
 dataBudget.drop(columns=['Identificador da Conta'], inplace=True)
+dataBudget.drop(columns=['Cod.IBGE'], inplace=True)
 
 uniqueNamesBudget = pd.unique(dataBudget["Instituição"])
 
@@ -136,7 +136,6 @@ graphics.createGraphics(
     'Estados',
     'Total do Saldo'
 )
-
 
 ######## Gerando relatorios nos txt ########
 report = Report()
