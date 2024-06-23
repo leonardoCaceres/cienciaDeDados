@@ -116,7 +116,9 @@ while (len(sumListBudget) > cont):
 # Criar gráficos de gastos
 dataBalance = {
     'Estados': statesBudget,
-    'Saldo': resultStates
+    'Saldo': resultStates,
+    'Arrecadacao': sumListBudget,
+    'Gastos': sumListExpense
 }
 
 dfBalance = pd.DataFrame(dataBalance)
@@ -124,6 +126,8 @@ dfBalance = dfBalance.sort_values(by='Saldo', ascending=False)
 
 statesBalance = dfBalance['Estados'].to_numpy()
 valuesBalance = dfBalance['Saldo'].to_numpy()
+valuesBudget = dfBalance['Arrecadacao'].to_numpy()
+valuesExpense = dfBalance['Gastos'].to_numpy()
 
 graphics.createGraphics(
     statesBalance,
@@ -136,7 +140,7 @@ graphics.createGraphics(
 
 ######## Gerando relatorios nos txt ########
 report = Report()
-report.createReportStates(statesBalance, sumListBudget, sumListExpense, valuesBalance)
+report.createReportStates(statesBalance, valuesBudget, valuesExpense, valuesBalance)
 
 ### Filtrando prefeituras que não estão presentes em ambos os relatorios
 filterExpense = ['Prefeitura Municipal de Bujari - AC', 'Prefeitura Municipal de Uirapuru - GO']
