@@ -1,5 +1,13 @@
+from typing import List
+
 class Report:
-    def createReportStates(self, states, budget, expense, result):
+    def createReportStates(
+            self,
+            states: List[str],
+            budget: List[float],
+            expense: List[float],
+            result: List[float]
+        ) -> None:
         report = 'reportStates.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
@@ -31,14 +39,13 @@ class Report:
     
     def createReportCounties(
             self,
-            counties,
-            countiesBudget,
-            countiesExpense,
-            population,
-            countiesProfit,
-            countiesQuartis
-        ):
-
+            counties: List[str],
+            countiesBudget: List[str],
+            countiesExpense: List[str],
+            population: List[str],
+            countiesBalance: List[float],
+            countiesQuartis: List[str]
+        ) -> None:
         report = 'reportCounties.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
@@ -50,15 +57,15 @@ class Report:
 
             while len(counties) > cont:
                 PIB = float(countiesBudget[cont].replace(",", "."))/float(population[cont])
-                if (countiesProfit[cont] > 0):
+                if (countiesBalance[cont] > 0):
                     lucro += 1
-                elif (countiesProfit[cont] < 0):
+                elif (countiesBalance[cont] < 0):
                     prejuizo += 1
                 line.append(
                     f"{counties[cont]} \n"
                     + f"Arrecadação: {countiesBudget[cont]} \n"
                     + f"Gastos: {countiesExpense[cont]} \n"
-                    + f"Saldo orçamentario: {countiesProfit[cont]:.2f} \n"
+                    + f"Saldo orçamentario: {countiesBalance[cont]:.2f} \n"
                     + f"Arecadação per capta do municipio: {PIB:.2f} \n"
                     + f"Posição do municipio: {countiesQuartis[cont]} \n"
                     + '---------------------------------- \n')
@@ -79,7 +86,7 @@ class Report:
         finally:
             file.close()
     
-    def calculateCountiesProfit(self, countiesBudget, countiesExpense):
+    def calculateCountiesBalance(self, countiesBudget: List[str], countiesExpense: List[str]) -> List[float]:
         cont = 0
         result = []
         
@@ -89,7 +96,7 @@ class Report:
         
         return result
     
-    def determinar_quartil(self, valor, q1, q2, q3):
+    def determinar_quartil(self, valor: float, q1: float, q2: float, q3: float) -> str:
         if valor <= q1:
             return 'Entre os 25% piores'
         elif valor <= q2:

@@ -1,7 +1,15 @@
 import matplotlib.pyplot as plt
+from typing import List
 
 class Graphics:
-    def createGraphics(self, names, values, title, name, description):
+    def createGraphics(
+            self,
+            names: List[str],
+            values: List[float],
+            title: str,
+            name: str,
+            description: str
+        ) -> None:
         fig, ax = plt.subplots(figsize=(12, 6))
 
         bars = ax.bar(names, values, color='skyblue', edgecolor='black')

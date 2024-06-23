@@ -148,7 +148,7 @@ onlyPaidExpenseAndTotalFiltered = onlyPaidExpenseAndTotal[~onlyPaidExpenseAndTot
 filterBudget = ['Prefeitura Municipal de Nova Lima - MG', 'Prefeitura Municipal de Oliveira - MG', 'Prefeitura Municipal de Piraí do Norte - BA', 'Prefeitura Municipal de Pedro Alexandre - BA']
 onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[~onlyPaidBudgetAndTotal["Instituição"].isin(filterBudget)]
 
-profit = report.calculateCountiesProfit(
+balance = report.calculateCountiesBalance(
     onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(), 
     onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy()
 )
@@ -159,7 +159,7 @@ dataCounties = {
     'Gastos': onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy(),
     'Arrecadacao': onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(),
     'Populacao': onlyPaidBudgetAndTotalFiltered["População"].to_numpy(),
-    'Lucro' : profit
+    'Lucro' : balance
 }
 
 dfCounties = pd.DataFrame(dataCounties)
@@ -178,13 +178,13 @@ countiesExpense = dfCounties["Gastos"].to_numpy()
 countiesBudget = dfCounties["Arrecadacao"].to_numpy()
 countiesPopulation = dfCounties["Populacao"].to_numpy()
 countiesQuartis = dfCounties['Quartil'].to_numpy()
-countiesProfit = report.calculateCountiesProfit(countiesBudget, countiesExpense)
+countiesBalance = report.calculateCountiesBalance(countiesBudget, countiesExpense)
 
 report.createReportCounties(
     counties,
     countiesBudget,
     countiesExpense,
     countiesPopulation,
-    countiesProfit,
+    countiesBalance,
     countiesQuartis
 )
