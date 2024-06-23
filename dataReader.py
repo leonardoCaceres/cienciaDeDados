@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from report import *
+from graphics import *
 
 ######## Expense ########
 fileExpense = "despesas/despesas.csv"
@@ -37,18 +37,23 @@ for uf in uniqueEstados:
     statesExpense.append(uf)
     sumListExpense.append(soma)
 
-# Personalizando o gráfico
-fig, ax = plt.subplots(figsize=(12, 6))
+# Criar gráficos de gastos
+dataExpenses = {
+    'Estados': statesExpense,
+    'Gastos': sumListExpense
+}
 
-bars = ax.bar(statesExpense, sumListExpense, color='skyblue', edgecolor='black')
+dfExpenses = pd.DataFrame(dataExpenses)
+dfExpenses = dfExpenses.sort_values(by='Gastos', ascending=False)
 
-# Adicionando título e rótulos
-ax.set_title('Despesas Pagas por Estado', fontsize=16)
-ax.set_xlabel('Estados', fontsize=14)
-ax.set_ylabel('Total de Despesas Pagas', fontsize=14)
-
-plt.bar(statesExpense, sumListExpense)
-plt.show()
+graphics = Graphics()
+graphics.createGraphics(
+    dfExpenses['Estados'].to_numpy(),
+    dfExpenses['Gastos'].to_numpy(),
+    'Despesas Pagas por Estado',
+    'Estados',
+    'Total de Despesas Pagas'
+)
 
 ######## Budget ########
 
@@ -83,7 +88,24 @@ for uf in uniqueEstados:
     statesBudget.append(uf)
     sumListBudget.append(soma)
 
-# Personalizando o gráfico
+# Criar gráficos de gastos
+dataBudget = {
+    'Estados': statesBudget,
+    'Arrecadacao': sumListBudget
+}
+
+dfBudget = pd.DataFrame(dataBudget)
+dfBudget = dfBudget.sort_values(by='Arrecadacao', ascending=False)
+
+graphics.createGraphics(
+    dfBudget['Estados'].to_numpy(),
+    dfBudget['Arrecadacao'].to_numpy(),
+    'Arrecadação por Estado',
+    'Estados',
+    'Total de Arrecadações'
+)
+
+######## Saldo das contas do estado ########
 resultStates = []
 cont = 0
 
@@ -91,35 +113,30 @@ while (len(sumListBudget) > cont):
     resultStates.append(sumListBudget[cont] - sumListExpense[cont])
     cont += 1
 
-fig, ax = plt.subplots(figsize=(12, 6))
+# Criar gráficos de gastos
+dataBalance = {
+    'Estados': statesBudget,
+    'Saldo': resultStates
+}
 
-bars = ax.bar(statesBudget, resultStates, color='skyblue', edgecolor='black')
+dfBalance = pd.DataFrame(dataBalance)
+dfBalance = dfBalance.sort_values(by='Saldo', ascending=False)
 
-# Adicionando título e rótulos
-ax.set_title('Arrecadação por Estado', fontsize=16)
-ax.set_xlabel('Estados', fontsize=14)
-ax.set_ylabel('Total de Arrecadações', fontsize=14)
+statesBalance = dfBalance['Estados'].to_numpy()
+valuesBalance = dfBalance['Saldo'].to_numpy()
 
-plt.bar(statesBudget, sumListBudget)
-plt.show()
-
-######## Estado das contas do estado ########
-fig, ax = plt.subplots(figsize=(12, 6))
-
-bars = ax.bar(statesBudget, resultStates, color='skyblue', edgecolor='black')
-
-# Adicionando título e rótulos
-ax.set_title('Saldo orçamentario', fontsize=16)
-ax.set_xlabel('Estados', fontsize=14)
-ax.set_ylabel('Total da subtração', fontsize=14)
-
-plt.bar(statesBudget, resultStates)
-plt.show()
+graphics.createGraphics(
+    statesBalance,
+    valuesBalance,
+    'Saldo dos Estado',
+    'Estados',
+    'Total do Saldo'
+)
 
 
 ######## Gerando relatorios nos txt ########
 report = Report()
-report.createReportStates(statesBudget, sumListBudget, sumListExpense, resultStates)
+report.createReportStates(statesBalance, sumListBudget, sumListExpense, valuesBalance)
 
 ### Filtrando prefeituras que não estão presentes em ambos os relatorios
 filterExpense = ['Prefeitura Municipal de Bujari - AC', 'Prefeitura Municipal de Uirapuru - GO']
