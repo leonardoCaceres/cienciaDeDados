@@ -32,9 +32,6 @@ class ReportCounties(ReportInterface):
                 q3 = balance[int(len(balance)/4)]
                 q2 = balance[int(len(balance)/2)]
                 q1 = balance[int(3*(len(balance)/4))]
-                print(q1)
-                print(q2)
-                print(q3)
 
                 cont = 0
                 prejuizo = 0
