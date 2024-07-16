@@ -1,0 +1,130 @@
+SP 
+Arrecadação: 219635359171.34 
+Gastos: 185579200893.23 
+Saldo orçamentario: 34056158278.11 (15.51%) da arrecadação
+---------------------------------- 
+MG 
+Arrecadação: 86117808046.70 
+Gastos: 68227160062.35 
+Saldo orçamentario: 17890647984.35 (20.77%) da arrecadação
+---------------------------------- 
+RJ 
+Arrecadação: 73378494470.37 
+Gastos: 62536072547.54 
+Saldo orçamentario: 10842421922.83 (14.78%) da arrecadação
+---------------------------------- 
+RS 
+Arrecadação: 53276728743.58 
+Gastos: 42957676733.91 
+Saldo orçamentario: 10319052009.67 (19.37%) da arrecadação
+---------------------------------- 
+PR 
+Arrecadação: 51119236486.97 
+Gastos: 41345022222.07 
+Saldo orçamentario: 9774214264.90 (19.12%) da arrecadação
+---------------------------------- 
+SC 
+Arrecadação: 36186537512.49 
+Gastos: 28712347475.05 
+Saldo orçamentario: 7474190037.44 (20.65%) da arrecadação
+---------------------------------- 
+BA 
+Arrecadação: 46821939349.48 
+Gastos: 41799106163.12 
+Saldo orçamentario: 5022833186.36 (10.73%) da arrecadação
+---------------------------------- 
+GO 
+Arrecadação: 27500905287.71 
+Gastos: 23258345563.65 
+Saldo orçamentario: 4242559724.06 (15.43%) da arrecadação
+---------------------------------- 
+PE 
+Arrecadação: 28082076462.99 
+Gastos: 24433469355.15 
+Saldo orçamentario: 3648607107.84 (12.99%) da arrecadação
+---------------------------------- 
+PA 
+Arrecadação: 25301104997.16 
+Gastos: 22057334415.25 
+Saldo orçamentario: 3243770581.91 (12.82%) da arrecadação
+---------------------------------- 
+MT 
+Arrecadação: 16766901141.33 
+Gastos: 13990571458.50 
+Saldo orçamentario: 2776329682.83 (16.56%) da arrecadação
+---------------------------------- 
+CE 
+Arrecadação: 28747527074.09 
+Gastos: 26143119766.75 
+Saldo orçamentario: 2604407307.34 (9.06%) da arrecadação
+---------------------------------- 
+ES 
+Arrecadação: 15846825296.60 
+Gastos: 13260790940.39 
+Saldo orçamentario: 2586034356.21 (16.32%) da arrecadação
+---------------------------------- 
+MA 
+Arrecadação: 20842698186.68 
+Gastos: 18281991902.37 
+Saldo orçamentario: 2560706284.31 (12.29%) da arrecadação
+---------------------------------- 
+MS 
+Arrecadação: 14615994719.23 
+Gastos: 12056907437.81 
+Saldo orçamentario: 2559087281.42 (17.51%) da arrecadação
+---------------------------------- 
+PB 
+Arrecadação: 13199529931.15 
+Gastos: 11308526224.40 
+Saldo orçamentario: 1891003706.75 (14.33%) da arrecadação
+---------------------------------- 
+RN 
+Arrecadação: 11385589245.53 
+Gastos: 9707810496.39 
+Saldo orçamentario: 1677778749.14 (14.74%) da arrecadação
+---------------------------------- 
+AL 
+Arrecadação: 11651725777.79 
+Gastos: 10083043681.63 
+Saldo orçamentario: 1568682096.16 (13.46%) da arrecadação
+---------------------------------- 
+RO 
+Arrecadação: 6068146708.93 
+Gastos: 4720139711.19 
+Saldo orçamentario: 1348006997.74 (22.21%) da arrecadação
+---------------------------------- 
+AM 
+Arrecadação: 13938709062.61 
+Gastos: 12621646151.44 
+Saldo orçamentario: 1317062911.17 (9.45%) da arrecadação
+---------------------------------- 
+PI 
+Arrecadação: 11572638495.26 
+Gastos: 10414592588.61 
+Saldo orçamentario: 1158045906.65 (10.01%) da arrecadação
+---------------------------------- 
+SE 
+Arrecadação: 7536577494.96 
+Gastos: 6516070205.77 
+Saldo orçamentario: 1020507289.19 (13.54%) da arrecadação
+---------------------------------- 
+TO 
+Arrecadação: 6511982352.20 
+Gastos: 5528118266.74 
+Saldo orçamentario: 983864085.46 (15.11%) da arrecadação
+---------------------------------- 
+RR 
+Arrecadação: 2544480237.82 
+Gastos: 1914668241.97 
+Saldo orçamentario: 629811995.85 (24.75%) da arrecadação
+---------------------------------- 
+AC 
+Arrecadação: 2544516114.73 
+Gastos: 2158825103.88 
+Saldo orçamentario: 385691010.85 (15.16%) da arrecadação
+---------------------------------- 
+AP 
+Arrecadação: 2001384736.62 
+Gastos: 1706930801.02 
+Saldo orçamentario: 294453935.60 (14.71%) da arrecadação
+---------------------------------- 

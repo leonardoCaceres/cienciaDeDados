@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pandas as pd
 
@@ -9,8 +11,10 @@ from Report.Implements.reportCounties import ReportCounties
 from Report.Implements.reportStates import ReportStates
 
 def openfile(path):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    file_path = os.path.join(base_dir, path)
     data = pd.read_csv(
-    path, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
+    file_path, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
     )
     return data
 

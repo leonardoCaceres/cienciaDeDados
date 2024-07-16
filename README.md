@@ -24,7 +24,7 @@ Projeto feito em python 3 que visa fazer levantamento de todas as despesas e rec
     pip install pandas
 ```
 
-3. Crie pastas com o nome ```despesas``` e ```receitas``` e baixe os arquivos referente ao ano que você deseja no site <a href="https://siconfi.tesouro.gov.br/siconfi/index.jsf">sconfi</a>.
+3. Crie pastas com o nome ```despesas``` e ```receitas``` e baixe os arquivos referente ao ano que você deseja no site <a href="https://siconfi.tesouro.gov.br/siconfi/index.jsf">siconfi</a>.
 
 <h3>Autores</h3>
 <a href="https://github.com/JoabUrbano">Joab Urbano</a><br>
