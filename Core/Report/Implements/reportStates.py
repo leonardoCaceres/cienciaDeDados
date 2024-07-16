@@ -16,7 +16,7 @@ class ReportStates(ReportInterface):
         self.result = result
     
     def createReport(self) -> None:
-        report = 'reportStates.txt'
+        report = 'files/reports/reportStates.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
             line = file.readlines()

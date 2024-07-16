@@ -1,4 +1,3 @@
-**/despesas
-**/receitas
-report.txt
 __pycache__/
+*.csv
+*.txt

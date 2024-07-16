@@ -18,7 +18,7 @@ class ReportCounties(ReportInterface):
         self.population = population
     
     def createReport(self) -> None:
-        report = 'reportCounties.txt'
+        report = 'files/reports/reportCounties.txt'
         try:
             with open(report, 'w+', encoding='utf-8') as file:
                 countiesOrdened = self.ordenarCounties()

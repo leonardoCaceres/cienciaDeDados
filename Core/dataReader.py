@@ -1,5 +1,3 @@
-import os
-
 import numpy as np
 import pandas as pd
 
@@ -11,10 +9,8 @@ from Report.Implements.reportCounties import ReportCounties
 from Report.Implements.reportStates import ReportStates
 
 def openfile(path):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(base_dir, path)
     data = pd.read_csv(
-    file_path, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
+    path, sep=";", encoding="latin-1", escapechar="\n", skiprows=3
     )
     return data
 
@@ -36,7 +32,7 @@ def  calculateSumStates(uniqueEstados, onlyPaidAndTotal):
 generate = Generate()
 
 ######## Expense ########
-dataExpense = openfile("despesas/despesas.csv")
+dataExpense = openfile("files/datasets/despesas/despesas.csv")
 # Removendo informações desnecessarias
 dataExpense.drop(columns=['Identificador da Conta'], inplace=True)
 dataExpense.drop(columns=['Cod.IBGE'], inplace=True)
@@ -73,7 +69,7 @@ graphicsExpense = GraphicsImpl(
 generate.generateGraphic(graphicsExpense)
 
 ######## Budget ########
-dataBudget = openfile("receitas/receitas.csv")
+dataBudget = openfile("files/datasets/receitas/receitas.csv")
 
 # Removendo informações desnecessarias
 dataBudget.drop(columns=['Identificador da Conta'], inplace=True)
