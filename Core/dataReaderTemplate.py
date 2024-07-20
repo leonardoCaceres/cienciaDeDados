@@ -29,14 +29,19 @@ class DataReaderTemplate:
         
         return dataFrame
     
-    def initialization(self) -> None:
-        generate = Generate()
-
+    def initialization(self) -> pd.DataFrame:
         ######## Expense ########
         dataExpense = self.openfile(self.pathExpense)
-        # Removendo informações desnecessarias
         dataExpense = self.cleanData(dataExpense, True)
 
+        ######## Budget ########
+        dataBudget = self.openfile(self.pathBudget)
+        dataBudget = self.cleanData(dataBudget, False)
+
+        return self.sumForStates(dataExpense, dataBudget)
+
+    def sumForStates(self, dataExpense: pd.DataFrame, dataBudget: pd.DataFrame) -> pd.DataFrame:
+        generate = Generate()
         onlyPaidExpense = dataExpense[dataExpense["Coluna"] == "Despesas Pagas"]
 
         onlyPaidExpenseAndTotal = onlyPaidExpense[
@@ -75,12 +80,6 @@ class DataReaderTemplate:
             'Total de Despesas Pagas'
         )
         generate.generateGraphic(graphicsExpense)
-
-        ######## Budget ########
-        dataBudget = self.openfile(self.pathBudget)
-
-        # Removendo informações desnecessarias
-        dataBudget = self.cleanData(dataBudget, False)
 
         onlyPaidBudget = dataBudget[dataBudget["Coluna"] == "Receitas Brutas Realizadas"]
 
@@ -157,7 +156,7 @@ class DataReaderTemplate:
         ######## Gerando relatorios nos txt ########
         reportStates = ReportStates(statesBalance, valuesBudget, valuesExpense, valuesBalance, 2020)
         generate.generateReport(reportStates)
-        
+
         ### Filtrando prefeituras que não estão presentes em ambos os relatorios
         filterExpense = ['Prefeitura Municipal de Bujari - AC', 'Prefeitura Municipal de Uirapuru - GO']
         onlyPaidExpenseAndTotalFiltered = onlyPaidExpenseAndTotal[~onlyPaidExpenseAndTotal["Instituição"].isin(filterExpense)]
@@ -174,3 +173,15 @@ class DataReaderTemplate:
         )
 
         generate.generateReport(reportCounties)
+
+        dataCountie = {
+            'Municipios': onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy(),
+            'Arrecadacao': onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(),
+            'Gastos': onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy(),
+            'Populacao': onlyPaidBudgetAndTotalFiltered["População"].to_numpy(),
+        }
+
+        dfBCountie = pd.DataFrame(dataCountie)
+        
+        return dfBCountie
+    
