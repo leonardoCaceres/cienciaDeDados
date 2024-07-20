@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 import numpy as np
 
-from Report.reportInterface import ReportInterface
+from Core.Report.reportInterface import ReportInterface
 
 class ReportCounties(ReportInterface):
 
@@ -11,14 +11,16 @@ class ReportCounties(ReportInterface):
             budget: np.ndarray,
             expense: np.ndarray,
             population: np.ndarray,
+            year: int
         ):
         self.counties = counties
         self.budget = budget
         self.expense = expense
         self.population = population
+        self.year = year
     
     def createReport(self) -> None:
-        report = 'files/reports/reportCounties.txt'
+        report = 'files/reports/reportCounties' + str(self.year) + '.txt'
         try:
             with open(report, 'w+', encoding='utf-8') as file:
                 countiesOrdened = self.ordenarCounties()

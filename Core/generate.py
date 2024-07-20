@@ -1,6 +1,6 @@
 from typing import Type
-from Report.reportInterface import ReportInterface
-from Graphic.graphicsInterface import GraphicsInterface
+from Core.Report.reportInterface import ReportInterface
+from Core.Graphic.graphicsInterface import GraphicsInterface
 
 class Generate:
 

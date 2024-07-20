@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from typing import List
 
-from Graphic.graphicsInterface import GraphicsInterface
+from Core.Graphic.graphicsInterface import GraphicsInterface
 
 class GraphicsImpl(GraphicsInterface):
 

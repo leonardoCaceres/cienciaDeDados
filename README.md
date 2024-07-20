@@ -1,8 +1,8 @@
-# Tratamento de dados de receitas e gastos dos Estados Brasileiros
+# Tratamento de dados de receitas e gastos dos estados e municipios brasileiros
 <span>Arquivos publicos da sconfi</span>
 <h1 id="usage" > 💻 Descrição </h1>
 
-Projeto feito em python 3 que visa fazer levantamento de todas as despesas e receitas dos Estados Brasileiros a fim de verificar quais estados dão prejuizo, o quanto dão prejuizo, e analisar quais areas que consomem mais recursos públicos. Todos os dados utilizados aqui são públicos disponibilizados no site da <a href="https://siconfi.tesouro.gov.br/siconfi/index.jsf">sconfi</a>.
+Projeto feito em python 3 que visa fazer levantamento de todas as despesas e receitas dos estados e municipios brasileiros a fim de verificar quais estados e municipios dão prejuizo, o quanto dão prejuizo, e analisar quais areas que consomem mais recursos públicos. Todos os dados utilizados aqui são públicos disponibilizados no site da <a href="https://siconfi.tesouro.gov.br/siconfi/index.jsf">sconfi</a>.
 
 <h1 id="usage" > 📚 Bibliotecas </h1>
 - Matplotlib<br>

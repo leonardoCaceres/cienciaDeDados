@@ -1,5 +1,5 @@
 from typing import List
-from Report.reportInterface import ReportInterface
+from Core.Report.reportInterface import ReportInterface
 
 class ReportStates(ReportInterface):
 
@@ -8,15 +8,17 @@ class ReportStates(ReportInterface):
             states: List[str],
             budget: List[float],
             expense: List[float],
-            result: List[float]
+            result: List[float],
+            year: int
         ):
         self.states = states
         self.budget = budget
         self.expense = expense
         self.result = result
+        self.year = year
     
     def createReport(self) -> None:
-        report = 'files/reports/reportStates.txt'
+        report = 'files/reports/reportStates' + str(self.year) + '.txt'
         try:
             file = open(report, 'w+', encoding='utf-8')
             line = file.readlines()
