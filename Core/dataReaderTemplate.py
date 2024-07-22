@@ -8,6 +8,9 @@ from Core.Graphic.Implements.graphics import GraphicsImpl
 from Core.Report.Implements.reportCounties import ReportCounties
 from Core.Report.Implements.reportStates import ReportStates
 
+from Core.reportStatesAdapter import StatesAdapter
+from Core.reportCountiesAdapter import ReportCountiesAdapter
+
 class DataReaderTemplate:
     
     def __init__(self, pathExpense: str, pathBudget: str, year: int):
@@ -138,24 +141,10 @@ class DataReaderTemplate:
 
         dfBalance = pd.DataFrame(dataBalance)
         dfBalance = dfBalance.sort_values(by='Saldo', ascending=False)
-
-        statesBalance = dfBalance['Estados'].to_numpy()
-        valuesBalance = dfBalance['Saldo'].to_numpy()
-        valuesBudget = dfBalance['Arrecadacao'].to_numpy()
-        valuesExpense = dfBalance['Gastos'].to_numpy()
-
-        graphicsBalance = GraphicsImpl(
-            statesBalance,
-            valuesBalance,
-            'Saldo dos Estado',
-            'Estados',
-            'Total do Saldo'
-        )
-        generate.generateGraphic(graphicsBalance)
-
-        ######## Gerando relatorios nos txt ########
-        reportStates = ReportStates(statesBalance, valuesBudget, valuesExpense, valuesBalance, 2020)
-        generate.generateReport(reportStates)
+        
+        ### Adapter ###
+        statesAdapter = StatesAdapter(dfBalance)
+        statesAdapter.adapterToReport()
 
         ### Filtrando prefeituras que não estão presentes em ambos os relatorios
         filterExpense = ['Prefeitura Municipal de Bujari - AC', 'Prefeitura Municipal de Uirapuru - GO']
@@ -164,24 +153,16 @@ class DataReaderTemplate:
         filterBudget = ['Prefeitura Municipal de Nova Lima - MG', 'Prefeitura Municipal de Oliveira - MG', 'Prefeitura Municipal de Piraí do Norte - BA', 'Prefeitura Municipal de Pedro Alexandre - BA']
         onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[~onlyPaidBudgetAndTotal["Instituição"].isin(filterBudget)]
 
-        reportCounties = ReportCounties(
-            onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy(),
-            onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(),
-            onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy(),
-            onlyPaidBudgetAndTotalFiltered["População"].to_numpy(),
-            self.year
-        )
-
-        generate.generateReport(reportCounties)
-
         dataCountie = {
             'Municipios': onlyPaidExpenseAndTotalFiltered["Instituição"].to_numpy(),
             'Arrecadacao': onlyPaidBudgetAndTotalFiltered["Valor"].to_numpy(),
             'Gastos': onlyPaidExpenseAndTotalFiltered["Valor"].to_numpy(),
-            'Populacao': onlyPaidBudgetAndTotalFiltered["População"].to_numpy(),
+            'Populacao': onlyPaidBudgetAndTotalFiltered["População"].to_numpy()
         }
 
         dfBCountie = pd.DataFrame(dataCountie)
-        
+        reportCountiesAdapter = ReportCountiesAdapter(dfBCountie, self.year)
+        reportCountiesAdapter.adapterToReport()
+
         return dfBCountie
     
