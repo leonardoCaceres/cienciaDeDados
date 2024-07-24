@@ -146,24 +146,6 @@ class DataReaderTemplate:
         statesAdapter.adapterToReport()
 
         # ### Filtrando prefeituras que não estão presentes em ambos os relatorios
-        # filterExpense = [
-        #     "Prefeitura Municipal de Bujari - AC",
-        #     "Prefeitura Municipal de Uirapuru - GO",
-        # ]
-        # onlyPaidExpenseAndTotalFiltered = onlyPaidExpenseAndTotal[
-        #     ~onlyPaidExpenseAndTotal["Instituição"].isin(filterExpense)
-        # ]
-
-        # filterBudget = [
-        #     "Prefeitura Municipal de Nova Lima - MG",
-        #     "Prefeitura Municipal de Oliveira - MG",
-        #     "Prefeitura Municipal de Piraí do Norte - BA",
-        #     "Prefeitura Municipal de Pedro Alexandre - BA",
-        # ]
-        # onlyPaidBudgetAndTotalFiltered = onlyPaidBudgetAndTotal[
-        #     ~onlyPaidBudgetAndTotal["Instituição"].isin(filterBudget)
-        # ]
-
         onlyPaidBudgetAndTotalFiltered, onlyPaidExpenseAndTotalFiltered = (
             self.removeMissingCities(onlyPaidBudgetAndTotal, onlyPaidExpenseAndTotal)
         )
